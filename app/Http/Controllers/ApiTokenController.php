@@ -34,9 +34,7 @@ class ApiTokenController extends Controller
         $token = $user->createToken($request->device_name)->plainTextToken;
 
         return response()->json([
-            "token" => $token,
-            "name" => $user->name,
-            "email" => $user->email
+            "token" => $token
         ], 200);
     }
 
@@ -66,19 +64,17 @@ class ApiTokenController extends Controller
 
         return response()->json([
             "token" => $token,
-            "name" => $user->name,
-            "email" => $user->email,
-            "created_at" => $user->created_at
-        ], 200);
+        ], 201);
     }
 
     public function me(Request $request)
     {
-
         return response()->json([
+            "id" => $request->user()->id,
             "name" => $request->user()->name,
             "email" => $request->user()->email,
             "created_at" => $request->user()->created_at,
+            "updated_at" => $request->user()->updated_at,
         ], 200);
     }
 

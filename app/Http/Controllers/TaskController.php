@@ -11,15 +11,17 @@ class TaskController extends Controller
 
     public function getAll(Request $request)
     {
+
         $user_id = $request->user()->id;
         $taskList = Task::with("user")
-            ->where('user_id', $user_id)->get();
+            ->where('user_id', $user_id)->latest()->get();
 
         return response()->json($taskList, 200);
     }
 
     public function getOne(Request $request, $id)
     {
+
         $task = Task::find($id);
 
         if (empty($task)) {
